@@ -1,0 +1,137 @@
+.product-details-section {
+    background-color: #f9fafb; /* Light background */
+    padding: 2rem 0;
+    height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    margin-top: 5%;
+}
+
+.full-product-details {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2rem;
+}
+
+.image-container {
+    width: 400px;
+    height: 400px;
+}
+
+.full-product-image {
+    width: 100%;
+    border-radius: 0.75rem; /* Rounded corners */
+    transition: transform 0.3s ease;
+}
+
+.full-product-image:hover {
+    transform: scale(1.05);
+}
+
+.full-product-info {
+    text-align: center;
+}
+
+.full-product-name {
+    font-size: 2rem;
+    color: #1f2937; /* Dark gray */
+}
+
+.full-price-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.full-original-price {
+    font-size: 1.5rem;
+    color: #dc2626; /* Red */
+    text-decoration: line-through;
+}
+
+.full-discounted-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #16a34a; /* Green */
+}
+
+.rating-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stars {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.star {
+    width: 24px;
+    height: 24px;
+    color: #d1d5db; /* Gray */
+}
+
+.star.filled {
+    color: #fbbf24; /* Yellow */
+}
+
+.rating-text {
+    margin-left: 0.5rem;
+    color: #6b7280; /* Gray */
+}
+
+.reviews-text {
+    margin-left: 0.5rem;
+    color: #1f2937; /* Dark gray */
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.favorites-button, .full-cart-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.favorites-button {
+    color: #ffffff;
+    background-color: #3b82f6;
+    transition: .25s ease;
+}
+
+.favorites-button:hover {
+    background-color: #2563eb; /* Light gray */
+    box-shadow: 0 0 0 3px #93c5fd; /* Blue */
+}
+
+.full-cart-button {
+    background-color: #3b82f6; /* Blue */
+    color: #ffffff; /* White */
+    transition: .25s ease;
+}
+
+.full-cart-button:hover {
+    background-color: #2563eb; /* Darker blue */
+    box-shadow: 0 0 0 3px #93c5fd; /* Light blue */
+}
+
+.separator {
+    margin: 1.5rem 0;
+    border: 1px solid #e5e7eb; /* Light gray */
+}
+
+.description-text, .details-text {
+    color: #6b7280; /* Gray */
+    text-align: justify;
+}

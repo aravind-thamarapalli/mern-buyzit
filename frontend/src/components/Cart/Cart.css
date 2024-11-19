@@ -1,0 +1,175 @@
+.cart-main{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background: url('../assets/cart-bg.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.cart-container {
+    background: #ffffff78;
+    backdrop-filter: blur(5px);
+    border: 1px solid #ffffff3d;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    height: max-content;
+    padding: 20px;
+    margin-top: 7.5%;
+    width: max-content;
+    max-width: 1000px;
+    margin-left: auto; /* Center the cart */
+    margin-right: auto; /* Center the cart */
+}
+
+.cart-title {
+    font-size: 24px;
+    color: #000;
+    margin-bottom: 20px; /* Increased margin for better spacing */
+    text-align: center; /* Center title */
+    font-weight: bold; /* Make title bold */
+}
+
+.empty-cart {
+    text-align: center;
+    font-size: 18px;
+    color: #999; /* Lighter color for empty cart message */
+}
+
+.cart-items {
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px; /* Increased margin for better spacing */
+    border-bottom: 1px solid #000;
+    padding: 10px 0;
+}
+
+.cart-item-image {
+    height: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Space between image and details */
+    margin-right: 2rem;
+    border-radius: 5px; /* Slight rounding for the image */
+}
+
+.image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.cart-item-details {
+    width: 50%;
+    display: flex;
+    gap: 3rem; /* Space between image and details */
+    justify-content: space-between; /* Space between details */
+    align-items: center; /* Center alignment */
+}
+
+.cart-item-name {
+    color: #000;
+    margin: 0;
+    max-width: 100px; /* Limit width for long product names */
+}
+
+.cart-item-price {
+    font-weight: bold;
+    color: #000;
+    font-size: 24px; /* Adjust font size */
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 8px; /* Adjust padding */
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 16px; /* Increase button font size */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.quantity-button:hover {
+    background-color: #0056b3; /* Darken on hover */
+}
+
+.quantity {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold; /* Make quantity text bold */
+}
+
+.remove-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 8px; /* Adjust padding */
+    cursor: pointer;
+    font-size: 16px; /* Increase button font size */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.remove-button:hover {
+    background-color: #c82333; /* Darken on hover */
+}
+
+.cart-total {
+    font-size: 20px; /* Increased font size for visibility */
+    font-weight: bold;
+    text-align: right; /* Align total price to the right */
+    margin-top: 20px; /* Add margin for separation */
+}
+
+.cart-total span {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 5px; /* Space between price and icon */
+}
+
+.cart-buttons {
+    display: flex;
+    justify-content: space-between; /* Space between buttons */
+}
+
+.checkout-button, .continue-shopping-button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.checkout-button {
+    background-color: #007bff; /* Green for checkout */
+    color: white;
+}
+
+.checkout-button:hover {
+    background-color: #0056b3; /* Darker green on hover */
+}
+
+.continue-shopping-button {
+    background-color: #007bff; /* Blue for continue shopping */
+    color: white;
+}
+
+.continue-shopping-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+

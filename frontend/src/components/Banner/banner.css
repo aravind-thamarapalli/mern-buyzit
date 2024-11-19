@@ -1,0 +1,30 @@
+.banner-slider {
+    margin-top: 5%;
+    max-width: 100vw; 
+    margin-bottom: 30px; /* Limit the width of the slider */
+}
+
+.banner-slide img {
+    border-radius: 8px; /* Add rounded corners */
+    width: 100%; /* Ensure the image takes full width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Adjust height for small and medium devices */
+@media (max-width: 640px) { /* Small devices (sm) */
+    .banner-slide img {
+        height: 200px; /* Increase height for small screens */
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) { /* Medium devices (md) */
+    .banner-slide img {
+        height: 250px; /* Increase height for medium screens */
+    }
+}
+
+@media (min-width: 1025px) { /* Large devices and up */
+    .banner-slide img {
+        height: 350px; /* Default height for large screens */
+    }
+}

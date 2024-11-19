@@ -1,0 +1,95 @@
+/* Overlay for the cart popup */
+.cart-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Bring the popup to the front */
+  }
+  
+  /* Styles for the cart popup */
+  .cart-popup {
+    background-color: white; /* White background for the popup */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside the popup */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    width: 400px; /* Fixed width for the popup */
+    max-width: 90%; /* Responsive max width */
+  }
+  
+  /* Title style */
+  .cart-popup h2 {
+    margin: 0 0 20px; /* Margin below the title */
+    font-size: 24px; /* Font size for the title */
+    color: #333; /* Dark gray color for the title */
+  }
+  
+  /* Cart details section */
+  .cart-details-pop {
+    margin-bottom: 20px; /* Margin below the cart details */
+  }
+  
+  /* Individual cart item styles */
+  .cart-item-pop {
+    display: flex;
+    justify-content: space-between; /* Space between item details */
+    padding: 10px 0; /* Padding for each item */
+    border-bottom: 1px solid #ddd; /* Light gray bottom border */
+  }
+  
+  /* Payment section styles */
+  .payment-section {
+    margin-bottom: 20px; /* Margin below payment section */
+  }
+  
+  /* Label styles for payment options */
+  .payment-section label {
+    display: block; /* Block display for label */
+    margin-bottom: 5px; /* Margin below label */
+  }
+  
+  /* Styles for select input */
+  #paymentOptions {
+    width: 100%; /* Full width for the select input */
+    padding: 8px; /* Padding inside the select input */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size for the select input */
+  }
+  
+  /* Button styles */
+  .pay-button, .close-button {
+    padding: 10px 15px; /* Padding for buttons */
+    margin-right: 10px; /* Margin between buttons */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor for buttons */
+    font-size: 16px; /* Font size for buttons */
+    transition: background-color 0.3s; /* Transition for hover effect */
+  }
+  
+  /* Pay button specific styles */
+  .pay-button {
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+  }
+  
+  .pay-button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  /* Close button specific styles */
+  .close-button {
+    background-color: #dc3545; /* Red background */
+    color: white; /* White text */
+  }
+  
+  .close-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  

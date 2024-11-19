@@ -1,0 +1,99 @@
+/* Header.css */
+
+.header-nav {
+    width: 100vw; /* Ensure the header takes the full viewport width */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, rgba(0, 66, 207, 0.4), rgba(0, 150, 255, 0.4));
+    backdrop-filter: blur(10px); /* Add a blur effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed; /* Position for absolute children */
+    z-index: 2; /* Ensure it stays on top of other elements */
+}
+
+.header-container {
+    max-width: 1200px; /* Set a max width for the container */
+    margin: 0 auto; /* Center the container */
+    display: flex;
+    justify-content: space-between; /* Align items */
+    align-items: center; /* Center items vertically */
+    width: 100%; /* Full width */
+}
+
+.header-logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff; /* Logo color */
+}
+
+.hamburger {
+    display: none; /* Hide by default */
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fff; /* Hamburger color */
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+/* Navigation styles */
+.nav {
+    display: flex;
+    flex-direction: row; /* Align items in a row */
+    gap: 15px; /* Space between links */
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: row; /* Align items in a row */
+    list-style: none; /* Remove list style */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    align-items: center;
+}
+
+.nav-link, .nav-button {
+    text-decoration: none;
+    color: #fff; /* Text color */
+    font-weight: 500;
+    padding: 10px 15px; /* Add some padding */
+    border-radius: 5px; /* Rounded corners */
+    transition: background 0.3s; /* Smooth background transition */
+}
+
+.nav-link:hover, .nav-button:hover {
+    background: rgba(255, 255, 255, 0.3); /* Lighter hover effect */
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+    .nav {
+        display: none; /* Hide nav by default */
+        flex-direction: column; /* Stack links vertically */
+        position: absolute;
+        top: 100%; /* Position directly below the header */
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #4caf50, #8bc34a); /* Background for mobile menu */
+        padding: 15px;
+        z-index: 1; /* Ensure it appears above other content */
+    }
+
+    .nav.open {
+        display: flex; /* Show nav when open */
+    }
+
+    .hamburger {
+        display: flex; /* Show hamburger menu on mobile */
+    }
+
+    .bar.active {
+        background-color: #8bc34a; /* Change color when active */
+    }
+}
