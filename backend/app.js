@@ -20,7 +20,8 @@ app.use(cors("*"));
 app.use(bodyParser.json());
 
 
-const mongoURI = 'mongodb://localhost:27017/buyzit';
+const mongoURI =
+  "mongodb+srv://admin:arv0725@buyzit-1.nugeu.mongodb.net/?retryWrites=true&w=majority&appName=Buyzit-1";
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
