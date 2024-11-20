@@ -15,14 +15,12 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const app = express();
 app.use(cors("*"));
-
+require('dotenv').config();
 
 app.use(bodyParser.json());
 
 
-const mongoURI =
-  "mongodb+srv://admin:arv0725@buyzit-1.nugeu.mongodb.net/?retryWrites=true&w=majority&appName=Buyzit-1";
-
+const mongoURI = process.env.DB_STRING;
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
