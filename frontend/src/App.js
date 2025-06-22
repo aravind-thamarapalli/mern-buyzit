@@ -15,7 +15,7 @@ import PrivateRoute from './components/PrivateRoute'; // Import PrivateRoute
 
 const AppRoutes = () => {
     const location = useLocation();
-    const noHeaderPaths = ['/admin/add-product', '/admin/all-orders'];
+    const noHeaderPaths = ['/admin/add-product', '/admin/all-orders', '/admin/add-category', '/admin/dashboard', '/Signup', '/login'];
 
     return (
         <>

@@ -27,7 +27,7 @@ const Login = () => {
         alert('Login successful!');
 
         if(data.user.isAdmin){
-            navigate('/admin/add-product',{replace:true});
+            navigate('/admin/dashboard',{replace:true});
         }
         else{
             navigate("/",{replace:true})
@@ -92,7 +92,7 @@ const Login = () => {
               </div>
               <p className="signup-links">
                 Don't have an account?{" "}
-                <a href="javascript:void(0);" className="signup-links">
+                <a href="/Signup" className="signup-links">
                   Register here
                 </a>
               </p>

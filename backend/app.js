@@ -400,6 +400,82 @@ app.get('/all-orders', verifyToken, async (req, res) => {
     }
 });
 
+app.get('/api/users', verifyToken, async (req, res) => {
+    try {
+        if (!req.user.isAdmin) {
+            return res.status(403).json({ message: 'Access denied. Admins only.' });
+        }
+
+        const users = await User.find({}, 'username email phone'); // Limit fields for security
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching users', error });
+    }
+});
+
+app.delete('/api/products/:id', verifyToken, async (req, res) => {
+  if (!req.user.isAdmin) return res.status(403).json({ message: 'Only admins can delete products' });
+
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    if (!deletedProduct) return res.status(404).json({ message: 'Product not found' });
+    res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error while deleting product', error });
+  }
+});
+
+
+app.delete('/api/categories/:id', verifyToken, async (req, res) => {
+  if (!req.user.isAdmin) return res.status(403).json({ message: 'Only admins can delete categories' });
+
+  try {
+    const deletedCategory = await Category.findByIdAndDelete(req.params.id);
+    if (!deletedCategory) return res.status(404).json({ message: 'Category not found' });
+    res.status(200).json({ message: 'Category deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error while deleting category', error });
+  }
+});
+
+
+app.delete('/api/users/:id', verifyToken, async (req, res) => {
+  if (!req.user.isAdmin) return res.status(403).json({ message: 'Only admins can delete users' });
+
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error while deleting user', error });
+  }
+});
+
+app.put('/orders/:id/status', verifyToken, async (req, res) => {
+  const orderId = req.params.id;
+  const { status } = req.body;
+
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ message: 'Only admins can update order status.' });
+  }
+
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { orderStatus: status },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: 'Order not found.' });
+    }
+
+    res.status(200).json({ message: 'Order status updated successfully.', order: updatedOrder });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update order status', error });
+  }
+});
+
 //     const { productId, quantity } = req.body;
   
 //     try {

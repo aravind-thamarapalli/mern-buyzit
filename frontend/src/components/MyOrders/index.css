@@ -1,80 +1,90 @@
-/* MyOrders.css */
-
-.orders-section {
-    padding: 24px 0; /* Vertical padding */
-    position: relative; /* For potential absolute positioning of child elements */
+.orders-main-title {
+  margin-top: 3rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.orders-container {
-    width: 100%;
-    max-width: 1200px; /* Set a maximum width for the container */
-    padding: 0 16px; /* Horizontal padding */
-    margin: 0 auto; /* Center the container */
-    margin-top: 5%;
-}
-.orders-list {
-    display: grid; /* Use grid layout */
-    grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
-    gap: 24px; /* Space between orders */
+.order-header h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  color: #374151;
 }
 
-.order-card {
-    padding: 24px; /* Inner padding */
-    border: 1px solid #e5e7eb; /* Light border */
-    border-radius: 20px; /* Rounded corners */
-    transition: border-color 0.5s; /* Smooth transition for border color */
+.order-id {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
 }
 
-.order-card:hover {
-    border-color: #9ca3af; /* Change border color on hover */
+.order-item.clean-layout {
+  background: #f9fafb;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #e5e7eb;
 }
 
-.order-summary-title {
-    font-family: 'Manrope', sans-serif; /* Specify font */
-    font-weight: bold;
-    font-size: 24px; /* Title size */
-    color: black; /* Title color */
-    padding-bottom: 24px; /* Space below title */
-    border-bottom: 1px solid #e5e7eb; /* Bottom border */
+.item-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #111827;
+  margin-bottom: 6px;
 }
 
-.order-data {
-    padding: 24px 0; /* Space above and below order items */
-    border-bottom: 1px solid #e5e7eb; /* Divider */
+.item-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: #374151;
 }
 
-.order-item {
-    display: flex;
-    justify-content: space-between; /* Space between item name and price */
-    margin-bottom: 16px; /* Space below each item */
+.item-details span {
+  margin-right: 12px;
 }
 
-.order-item-name {
-    font-weight: 500; /* Medium font weight */
-    font-size: 18px; /* Item name size */
-    color: #1f2937; /* Item name color */
+.item-total {
+  font-weight: 600;
+  color: #4f46e5;
 }
 
-.order-item-price {
-    font-weight: 500; /* Medium font weight */
-    font-size: 18px; /* Price size */
-    color: #1f2937; /* Price color */
+.order-footer {
+  border-top: 1px solid #e5e7eb;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 0.5rem;
 }
 
-.order-total, .order-detail {
-    display: flex;
-    justify-content: space-between; /* Space between label and value */
-    padding-top: 16px; /* Space above each detail */
+.order-meta {
+  flex: 1 1 45%;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  color: #374151;
 }
 
-.total-label, .detail-label {
-    font-weight: normal; /* Normal weight */
-    font-size: 20px; /* Label size */
-    color: black; /* Label color */
+.order-meta.total {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #4f46e5;
 }
 
-.total-amount, .detail-value {
-    font-weight: bold; /* Bold weight for totals */
-    font-size: 20px; /* Value size */
-    color: #4f46e5; /* Color for amounts */
+.status-text {
+  text-transform: capitalize;
+  color: #0ea5e9;
+}
+
+.loading-msg,
+.error-msg,
+.empty-msg {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #6b7280;
 }

@@ -6,23 +6,30 @@ const OrdersPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch orders on mount
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch('http://localhost:5000/all-orders',{
-          method:"GET",
-          headers:{
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          }
+        const token = localStorage.getItem('token');
+        if (!token) throw new Error('Token not found');
+
+        const response = await fetch('http://localhost:5000/all-orders', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
         });
+
         if (!response.ok) {
           throw new Error('Failed to fetch orders');
         }
+
         const data = await response.json();
-        console.log(data)
+        console.log('Fetched orders:', data);
         setOrders(data);
         setLoading(false);
       } catch (err) {
+        console.error(err);
         setError(err.message);
         setLoading(false);
       }
@@ -31,12 +38,15 @@ const OrdersPage = () => {
     fetchOrders();
   }, []);
 
+  // Handle order status update
   const handleStatusChange = async (orderId, newStatus) => {
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(`http://localhost:5000/orders/${orderId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ status: newStatus }),
       });
@@ -50,12 +60,15 @@ const OrdersPage = () => {
           order._id === orderId ? { ...order, orderStatus: newStatus } : order
         )
       );
+
+      console.log(`✅ Status updated to '${newStatus}' for Order ID: ${orderId}`);
     } catch (error) {
-      console.error('Error updating status:', error);
+      console.error('❌ Error updating status:', error);
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  // Render section
+  if (loading) return <p>Loading orders...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -66,26 +79,24 @@ const OrdersPage = () => {
           <div key={order._id} className="order-card">
             <div className="order-header">
               <h2>Order ID: {order._id}</h2>
-              <p>
-                User: {order.user.name} ({order.user.email})
-              </p>
+              <p>User: {order.user.name} ({order.user.email})</p>
               <p>Total Amount: ${order.totalAmount.toFixed(2)}</p>
             </div>
+
             <div className="od-products-list">
               {order.products.map((item) => (
                 <div key={item.product._id} className="od-product-card">
-                  <img src={require(`../../../../../backend/uploads/${item.product.imageUrl}`)} alt={item.product.name} />
                   <div className="od-product-details">
-                    <p>{item.product.name}</p>
+                    <p><strong>{item.product.name}</strong></p>
                     <p>Quantity: {item.quantity}</p>
-                    <p>Price: ${item.price}</p>
+                    <p>Price: ${item.price.toFixed(2)}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             <div className="order-status">
-              <p>Current Status: {order.orderStatus}</p>
+              <p>Current Status: <strong>{order.orderStatus}</strong></p>
               <select
                 value={order.orderStatus}
                 onChange={(e) => handleStatusChange(order._id, e.target.value)}

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import ProductForm from "./AddProduct";
 import AddCategory from "./AddCategory";
 import OrdersPage from "./OrdersPage";
+import Dashboard from "./Dashboard";
 import "./AdminSideBar.css"; // Import the CSS file
 
 const AdminSideBar = () => {
@@ -77,7 +78,7 @@ const AdminSideBar = () => {
 
           <ul className="menu">
             <li>
-              <a href="#" className="menu-item">
+              <a href="dashboard" className="menu-item">
                 Dashboard
               </a>
             </li>
@@ -107,6 +108,7 @@ const AdminSideBar = () => {
 
       <div className="content">
         <div className="content-container">
+          {id === "dashboard" && <Dashboard />}
           {id === "add-product" && <ProductForm />}
           {id === "add-category" && <AddCategory />}
           {id === "all-orders" && <OrdersPage />}
