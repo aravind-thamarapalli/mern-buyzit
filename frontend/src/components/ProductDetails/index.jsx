@@ -73,7 +73,7 @@ const ProductDetails = () => {
           <div className="image-container">
             <img
               className="full-product-image"
-              src={require(`../../../../backend/uploads/${product.imageUrl}`)}
+              src={`${product.imageUrl}`}
               alt={product.name}
             />
           </div>

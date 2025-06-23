@@ -91,7 +91,7 @@ export default function HomePage() {
   const handleAddToCart = async (product) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:5000/api/cart/add", {
+      const response = await fetch("http://localhost:5000/cart/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +135,7 @@ export default function HomePage() {
                     <Link to={`/product/${product._id}`} key={product.id}>
                       <img
                         alt={product.imageAlt}
-                        src={require(`../../../../backend/uploads/${product.imageUrl}`)}
+                        src={`${product.imageUrl}`}
                         className="product-image"
                       />
                     </Link>

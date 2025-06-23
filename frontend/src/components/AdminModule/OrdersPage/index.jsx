@@ -42,7 +42,7 @@ const OrdersPage = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/orders/${orderId}/status`, {
+      const response = await fetch(`http://localhost:5000/all-orders/${orderId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

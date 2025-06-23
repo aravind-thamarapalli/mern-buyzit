@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LiaRupeeSignSolid } from "react-icons/lia";
-import "./Cart.css"; // Import the CSS file
+import "./Cart.css";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -11,26 +11,34 @@ const Cart = () => {
 
   useEffect(() => {
     const fetchCartItems = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/cart", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${jwtToken}`,
-            "Content-Type": "application/json",
-          },
-        });
+  try {
+    const response = await fetch("http://localhost:5000/cart", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch cart items");
-        }
+    if (!response.ok) {
+      throw new Error("Failed to fetch cart items");
+    }
 
-        const data = await response.json();
-        setCartItems(data);
-        calculateTotal(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    const data = await response.json();
+    console.log("Raw cart data:", data);
+
+    // Access the correct array of items from the object
+    const items = Array.isArray(data.items) ? data.items : [];
+    console.log("Final cartItems:", items);
+
+    setCartItems(items);
+    calculateTotal(items);
+  } catch (error) {
+    console.error("Error fetching cart:", error);
+    setCartItems([]);
+  }
+};
+
 
     fetchCartItems();
   }, [jwtToken]);
@@ -38,91 +46,60 @@ const Cart = () => {
   const calculateTotal = (items) => {
     const total = items.reduce((acc, item) => {
       const discountedPrice = item.productId.discount
-        ? item.productId.price -
-          item.productId.price * (item.productId.discount / 100)
+        ? item.productId.price - item.productId.price * (item.productId.discount / 100)
         : item.productId.price;
       return acc + discountedPrice * item.quantity;
     }, 0);
     setTotalAmount(total.toFixed(2));
   };
 
-  const handleIncrement = async (productId) => {
+  const updateQuantity = async (productId, newQty) => {
+    try {
+      const response = await fetch(`http://localhost:5000/cart/${productId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ quantity: newQty }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update item quantity");
+      }
+
+      const data = await response.json();
+      console.log("Quantity updated:", data);
+    } catch (error) {
+      console.error("Update quantity error:", error);
+    }
+  };
+
+  const handleIncrement = (productId) => {
     const updatedItems = cartItems.map((item) =>
-      item.productId._id === productId
-        ? { ...item, quantity: item.quantity + 1 }
+      item.productId._id === productId ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    setCartItems(updatedItems);
+    calculateTotal(updatedItems);
+    updateQuantity(productId, updatedItems.find((i) => i.productId._id === productId).quantity);
+  };
+
+  const handleDecrement = (productId) => {
+    const updatedItems = cartItems.map((item) =>
+      item.productId._id === productId && item.quantity > 1
+        ? { ...item, quantity: item.quantity - 1 }
         : item
     );
     setCartItems(updatedItems);
     calculateTotal(updatedItems);
-
-    try {
-      const response = await fetch(`http://localhost:5000/cart/${productId}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          quantity: updatedItems.find(
-            (item) => item.productId._id === productId
-          ).quantity,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update item quantity");
-      }
-
-      const data = await response.json();
-      console.log("Quantity updated in the database:", data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleDecrement = async (productId) => {
-    const updatedItems = cartItems.map((item) => {
-      if (item.productId._id === productId && item.quantity > 1) {
-        return { ...item, quantity: item.quantity - 1 };
-      }
-      return item;
-    });
-
-    setCartItems(updatedItems);
-    calculateTotal(updatedItems);
-
-    try {
-      const response = await fetch(`http://localhost:5000/cart/${productId}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          quantity: updatedItems.find(
-            (item) => item.productId._id === productId
-          ).quantity,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update item quantity");
-      }
-
-      const data = await response.json();
-      console.log("Quantity updated in the database:", data);
-    } catch (error) {
-      console.error(error);
-    }
+    updateQuantity(productId, updatedItems.find((i) => i.productId._id === productId).quantity);
   };
 
   const handleRemove = (productId) => {
-    const updatedItems = cartItems.filter(
-      (item) => item.productId._id !== productId
-    );
+    const updatedItems = cartItems.filter((item) => item.productId._id !== productId);
     setCartItems(updatedItems);
     calculateTotal(updatedItems);
-    // Optionally, send the remove request to the server here
+    // TODO: Add backend delete call here if required
   };
 
   return (
@@ -131,7 +108,7 @@ const Cart = () => {
         <h2 className="cart-title">Cart</h2>
         <hr className="border-gray-900 mt-4 mb-8" />
 
-        {cartItems.length === 0 ? (
+        {!Array.isArray(cartItems) || cartItems.length === 0 ? (
           <p className="empty-cart">No Products</p>
         ) : (
           <div className="cart-items">
@@ -139,7 +116,7 @@ const Cart = () => {
               <div key={item._id} className="cart-item">
                 <div className="cart-item-image">
                   <img
-                    src={require(`../../../../backend/uploads/${item.productId.imageUrl}`)}
+                    src={item.productId.imageUrl}
                     alt={item.productId.name}
                     className="image"
                   />
@@ -172,8 +149,7 @@ const Cart = () => {
                     {item.productId.discount > 0
                       ? (
                           (item.productId.price -
-                            item.productId.price *
-                              (item.productId.discount / 100)) *
+                            item.productId.price * (item.productId.discount / 100)) *
                           item.quantity
                         ).toFixed(2)
                       : (item.productId.price * item.quantity).toFixed(2)}
@@ -200,7 +176,9 @@ const Cart = () => {
             >
               Checkout
             </button>
-            <button type="button" className="continue-shopping-button"
+            <button
+              type="button"
+              className="continue-shopping-button"
               onClick={() => navigate("/")}
             >
               Continue Shopping

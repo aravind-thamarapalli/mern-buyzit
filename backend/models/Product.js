@@ -1,4 +1,3 @@
-// models/Product.js
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
@@ -6,7 +5,8 @@ const productSchema = new mongoose.Schema({
     description: { type: String },
     price: { type: Number, required: true },
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true }, // Reference to Category model
-    imageUrl: { type: String }, // URL for product image
+    imageUrl: { type: String }, // URL for product image (now Cloudinary URL)
+    cloudinaryPublicId: { type: String }, // Store Cloudinary public_id for deletion
     stock: { type: Number, default: 0 }, // Number of items available
     discount: { type: Number, default: 0 }, // Discount percentage (0-100)
     createdAt: { type: Date, default: Date.now },
