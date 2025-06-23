@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./ProductDetails.css"; // Import the CSS file
 
+const BACKEND_URL = "https://mern-buyzit-backend.onrender.com"; // Update with your backend URL
+
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -11,7 +13,7 @@ const ProductDetails = () => {
   const handleAddToCart = async (product) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:5000/api/cart/add", {
+      const response = await fetch(`${BACKEND_URL}/api/cart/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +39,7 @@ const ProductDetails = () => {
     const fetchProductDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/products/${id}`
+          `${BACKEND_URL}/api/products/${id}`
         );
         if (!response.ok) {
           throw new Error("Product not found");

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
 
+const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; // Update with your backend URL
+
 const Signup = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -55,7 +57,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/register', {
+      const response = await fetch(`${BACKEND_URL}/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

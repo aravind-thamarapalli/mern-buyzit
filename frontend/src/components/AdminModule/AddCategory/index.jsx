@@ -4,6 +4,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import './AddCategory.css';
 
+const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; 
+
 // Validation schema
 const categorySchema = yup.object().shape({
     name: yup.string().required('Category name is required'),
@@ -26,7 +28,7 @@ const AddCategory = () => {
         const token = localStorage.getItem('token'); // Retrieve the token from localStorage (or wherever you store it)
 
         try {
-            const response = await fetch('http://localhost:5000/api/categories', {
+            const response = await fetch(`${BACKEND_URL}/api/categories`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

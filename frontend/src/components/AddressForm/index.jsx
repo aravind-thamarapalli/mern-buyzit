@@ -3,6 +3,8 @@ import CartPopup from '../CartPopup';
 import './AddressForm.css';
 import { useNavigate } from 'react-router-dom';
 
+const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; 
+
 const AddressForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     recipientName: '',
@@ -32,7 +34,7 @@ const AddressForm = ({ onSubmit }) => {
 
     try {
       // 1. Submit address
-      const response = await fetch('http://localhost:5000/add-address', {
+      const response = await fetch(`${BACKEND_URL}/add-address`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +47,7 @@ const AddressForm = ({ onSubmit }) => {
       await response.json();
 
       // 2. Fetch cart
-      const cartResponse = await fetch('http://localhost:5000/cart', {
+      const cartResponse = await fetch(`${BACKEND_URL}/cart`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },

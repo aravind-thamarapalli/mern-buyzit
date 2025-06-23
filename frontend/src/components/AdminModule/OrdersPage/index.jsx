@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
+const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; 
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -13,7 +14,7 @@ const OrdersPage = () => {
         const token = localStorage.getItem('token');
         if (!token) throw new Error('Token not found');
 
-        const response = await fetch('http://localhost:5000/all-orders', {
+        const response = await fetch(`${BACKEND_URL}/all-orders`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -42,7 +43,7 @@ const OrdersPage = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/all-orders/${orderId}/status`, {
+      const response = await fetch(`${BACKEND_URL}/all-orders/${orderId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
+const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; // Update with your backend URL
 
 const CartPopup = ({ cartDetails, paymentOptions, onClose, onPay }) => {
   const [selectedPayment, setSelectedPayment] = useState(paymentOptions[0]); // Default to the first payment option
@@ -23,7 +24,7 @@ const CartPopup = ({ cartDetails, paymentOptions, onClose, onPay }) => {
         paymentMethod: selectedPayment,
       };
 
-      const response = await fetch('http://localhost:5000/order', {
+      const response = await fetch(`${BACKEND_URL}/order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

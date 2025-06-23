@@ -4,6 +4,7 @@ import ProductFilters from "../Filter";
 import BannerSlider from "../Banner";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import "./Home.css"; // Import the CSS file for styles
+const BACKEND_URL = "https://mern-buyzit-backend.onrender.com"; // Update with your backend URL
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
@@ -15,7 +16,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/get-products");
+        const response = await fetch(`${BACKEND_URL}/api/get-products`);
         const data = await response.json();
         console.log(data.products);
         setProducts(data.products);
@@ -27,7 +28,7 @@ export default function HomePage() {
 
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/categories");
+        const response = await fetch(`${BACKEND_URL}/api/categories`);
         const data = await response.json();
         setCategories(data.categories);
       } catch (error) {
@@ -91,7 +92,7 @@ export default function HomePage() {
   const handleAddToCart = async (product) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:5000/cart/add", {
+      const response = await fetch(`${BACKEND_URL}/cart/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

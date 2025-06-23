@@ -20,7 +20,7 @@ const app = express();
 
 // CORS configuration - fix the CORS setup
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"], // Add your frontend URLs
+    origin: ["http://localhost:3000", "http://localhost:5173", "https://mern-buyzit.vercel.app"], // Add your frontend URLs
     credentials: true
 }));
 

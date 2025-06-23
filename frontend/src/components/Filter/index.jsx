@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; // Update with your backend URL
 
 const ProductFilters = ({ onCategoryChange, onPriceChange, selectedCategory, selectedPriceOrder }) => {
   const [categories, setCategories] = useState([]);
@@ -7,7 +8,7 @@ const ProductFilters = ({ onCategoryChange, onPriceChange, selectedCategory, sel
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/categories');
+        const response = await fetch(`${BACKEND_URL}/api/categories`);
         if (!response.ok) {
           throw new Error('Failed to fetch categories');
         }

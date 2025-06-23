@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import "./Cart.css";
+const BACKEND_URL = "https://mern-buyzit-backend.onrender.com"; // Update with your backend URL
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -12,7 +13,7 @@ const Cart = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
   try {
-    const response = await fetch("http://localhost:5000/cart", {
+    const response = await fetch(`${BACKEND_URL}/cart`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -55,7 +56,7 @@ const Cart = () => {
 
   const updateQuantity = async (productId, newQty) => {
     try {
-      const response = await fetch(`http://localhost:5000/cart/${productId}`, {
+      const response = await fetch(`${BACKEND_URL}/cart/${productId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${jwtToken}`,

@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; // Update with your backend URL
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -11,7 +13,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
+      const response = await fetch(`${BACKEND_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

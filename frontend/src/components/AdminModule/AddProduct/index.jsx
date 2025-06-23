@@ -4,6 +4,8 @@
   import * as yup from 'yup';
   import './AddProduct.css';
 
+  const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; 
+
   const schema = yup.object().shape({
       name: yup.string().required('Name is required'),
       description: yup.string(),
@@ -31,7 +33,7 @@
       useEffect(() => {
           const fetchCategories = async () => {
               try {
-                  const response = await fetch('http://localhost:5000/api/categories', {
+                  const response = await fetch(`${BACKEND_URL}/api/categories`, {
                       method: "GET",
                       headers: {
                           'Authorization': `Bearer ${token}`,
@@ -86,7 +88,7 @@
                   console.log(pair[0] + ': ' + pair[1]);
               }
 
-              const response = await fetch('http://localhost:5000/api/add-products', {
+              const response = await fetch(`${BACKEND_URL}/api/add-products`, {
                   method: 'POST',
                   headers: {
                       'Authorization': `Bearer ${token}`,

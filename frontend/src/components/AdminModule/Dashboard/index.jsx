@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { FiTrash2 } from 'react-icons/fi';
 import './index.css';
 
+const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; 
+
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -20,10 +22,10 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       try {
         const [productRes, orderRes, categoryRes, usersRes] = await Promise.all([
-          fetch('http://localhost:5000/api/get-products', { headers }),
-          fetch('http://localhost:5000/all-orders', { headers }),
-          fetch('http://localhost:5000/api/categories', { headers }),
-          fetch('http://localhost:5000/api/users', { headers }),
+          fetch(`${BACKEND_URL}/api/get-products`, { headers }),
+          fetch(`${BACKEND_URL}/all-orders`, { headers }),
+          fetch(`${BACKEND_URL}/api/categories`, { headers }),
+          fetch(`${BACKEND_URL}/api/users`, { headers }),
         ]);
 
         if (!productRes.ok || !orderRes.ok || !categoryRes.ok || !usersRes.ok) {
@@ -92,7 +94,7 @@ const Dashboard = () => {
             {products.map((p) => (
               <div key={p._id} className="mini-item">
                 {p.name} - ₹{p.price}
-                <button onClick={() => confirmAndDelete('http://localhost:5000/api/products', p._id, setProducts)} className="delete-btn"><FiTrash2 /></button>
+                <button onClick={() => confirmAndDelete(`${BACKEND_URL}/api/products`, p._id, setProducts)} className="delete-btn"><FiTrash2 /></button>
               </div>
             ))}
           </div>
@@ -115,7 +117,7 @@ const Dashboard = () => {
             {categories.map((c) => (
               <div key={c._id} className="mini-item">
                 {c.name}
-                <button onClick={() => confirmAndDelete('http://localhost:5000/api/categories', c._id, setCategories)} className="delete-btn"><FiTrash2 /></button>
+                <button onClick={() => confirmAndDelete(`${BACKEND_URL}/api/categories`, c._id, setCategories)} className="delete-btn"><FiTrash2 /></button>
               </div>
             ))}
           </div>
@@ -127,7 +129,7 @@ const Dashboard = () => {
             {users.map((u) => (
               <div key={u._id} className="mini-item">
                 {u.username} ({u.email})
-                <button onClick={() => confirmAndDelete('http://localhost:5000/api/users', u._id, setUsers)} className="delete-btn"><FiTrash2 /></button>
+                <button onClick={() => confirmAndDelete(`${BACKEND_URL}/api/users`, u._id, setUsers)} className="delete-btn"><FiTrash2 /></button>
               </div>
             ))}
           </div>
