@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import ThemeToggle from "../ThemeToggle";
 import "./Header.css"; // Import the CSS file
 
 const Header = () => {
@@ -27,9 +28,9 @@ const Header = () => {
   return (
     <nav className="header-nav">
       <div className="header-container">
-        <a href="/" className="header-logo">
+        <Link to="/" className="header-logo">
           BUYZIT
-        </a>
+        </Link>
         <div className="hamburger" onClick={toggleMenu}>
           <div className={`bar ${isOpen ? "active" : ""}`}></div>
           <div className={`bar ${isOpen ? "active" : ""}`}></div>
@@ -40,14 +41,17 @@ const Header = () => {
             {isLoggedIn ? (
               <>
                 <li>
-                  <a href="/my-orders" className="nav-link">
+                  <Link to="/my-orders" className="nav-link">
                     My Orders
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/Cart" className="nav-link">
+                  <Link to="/cart" className="nav-link">
                     Cart
-                  </a>
+                  </Link>
+                </li>
+                <li>
+                  <ThemeToggle />
                 </li>
                 <li>
                   <button onClick={handleLogout} className="nav-button">
@@ -66,9 +70,12 @@ const Header = () => {
                   </button>
                 </li>
                 <li>
-                  <a href="/Signup" className="nav-link">
+                  <Link to="/signup" className="nav-link">
                     Sign Up
-                  </a>
+                  </Link>
+                </li>
+                <li>
+                  <ThemeToggle />
                 </li>
               </>
             )}

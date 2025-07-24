@@ -55,7 +55,7 @@ const BannerSlider = () => {
             <img 
               src={banner.imageSrc} 
               alt={banner.altText} 
-              className="w-full h-auto object-cover" 
+              className="banner-image" 
             />
           </div>
         ))}

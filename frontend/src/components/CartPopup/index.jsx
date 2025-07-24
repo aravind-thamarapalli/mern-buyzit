@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
-const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; // Update with your backend URL
+import { orderAPI } from '../../services/api';
 
 const CartPopup = ({ cartDetails, paymentOptions, onClose, onPay }) => {
   const [selectedPayment, setSelectedPayment] = useState(paymentOptions[0]); // Default to the first payment option
@@ -24,14 +24,7 @@ const CartPopup = ({ cartDetails, paymentOptions, onClose, onPay }) => {
         paymentMethod: selectedPayment,
       };
 
-      const response = await fetch(`${BACKEND_URL}/order`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming JWT is stored in localStorage
-        },
-        body: JSON.stringify(orderDetails),
-      });
+      const response = await orderAPI.create(orderDetails);
 
       if (!response.ok) {
         throw new Error('Failed to place order');

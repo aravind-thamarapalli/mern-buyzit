@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-
-const BACKEND_URL = "https://mern-buyzit-backend.onrender.com"; // Update with your backend URL
+import { orderAPI } from "../../services/api";
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -14,13 +13,7 @@ const MyOrders = () => {
         const token = localStorage.getItem("token");
         if (!token) throw new Error("Authentication token is missing");
 
-        const response = await fetch(`${BACKEND_URL}/orders`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await orderAPI.getUserOrders();
 
         if (!response.ok) {
           throw new Error("Failed to fetch orders. Please check the server.");

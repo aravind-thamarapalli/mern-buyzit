@@ -4,7 +4,7 @@ import ProductFilters from "../Filter";
 import BannerSlider from "../Banner";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import "./Home.css"; // Import the CSS file for styles
-const BACKEND_URL = "https://mern-buyzit-backend.onrender.com"; // Update with your backend URL
+import { productAPI, categoryAPI, cartAPI } from "../../services/api";
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
@@ -16,7 +16,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/api/get-products`);
+        const response = await productAPI.getAll();
         const data = await response.json();
         console.log(data.products);
         setProducts(data.products);
@@ -28,7 +28,7 @@ export default function HomePage() {
 
     const fetchCategories = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/api/categories`);
+        const response = await categoryAPI.getAll();
         const data = await response.json();
         setCategories(data.categories);
       } catch (error) {
@@ -92,14 +92,7 @@ export default function HomePage() {
   const handleAddToCart = async (product) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`${BACKEND_URL}/cart/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ productId: product._id, quantity: 1 }),
-      });
+      const response = await cartAPI.addItem(product._id, 1);
 
       if (!response.ok) {
         throw new Error("Failed to add to cart");
@@ -133,13 +126,18 @@ export default function HomePage() {
             ) : (
               filteredProducts.map((product) => (
                 <div className="product-card" key={product._id}>
-                    <Link to={`/product/${product._id}`} key={product.id}>
+                  <div className="image-container">
+                    <Link to={`/product/${product._id}`}>
                       <img
-                        alt={product.imageAlt}
-                        src={`${product.imageUrl}`}
+                        alt={product.imageAlt || product.name}
+                        src={product.imageUrl}
                         className="product-image"
+                        onError={(e) => {
+                          e.target.src = '/placeholder-image.jpg';
+                        }}
                       />
                     </Link>
+                  </div>
                   <div className="product-details">
                     <h3 className="product-name">{product.name}</h3>
                     <div className="price-info">
@@ -169,12 +167,14 @@ export default function HomePage() {
                         </span>
                       )}
                     </div>
-                    <button
-                      onClick={() => handleAddToCart(product)}
-                      className="add-to-cart-button"
-                    >
-                      Add to Cart
-                    </button>
+                    <div className="product-add-btn">
+                      <button
+                        onClick={() => handleAddToCart(product)}
+                        className="add-to-cart-button"
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))

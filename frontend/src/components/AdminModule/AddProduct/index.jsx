@@ -3,8 +3,7 @@
   import { yupResolver } from '@hookform/resolvers/yup';
   import * as yup from 'yup';
   import './AddProduct.css';
-
-  const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; 
+  import { categoryAPI, productAPI } from '../../../services/api'; 
 
   const schema = yup.object().shape({
       name: yup.string().required('Name is required'),
@@ -33,12 +32,7 @@
       useEffect(() => {
           const fetchCategories = async () => {
               try {
-                  const response = await fetch(`${BACKEND_URL}/api/categories`, {
-                      method: "GET",
-                      headers: {
-                          'Authorization': `Bearer ${token}`,
-                      },
-                  });
+                  const response = await categoryAPI.getAll();
                   
                   if (!response.ok) {
                       throw new Error(`HTTP error! status: ${response.status}`);
@@ -88,14 +82,7 @@
                   console.log(pair[0] + ': ' + pair[1]);
               }
 
-              const response = await fetch(`${BACKEND_URL}/api/add-products`, {
-                  method: 'POST',
-                  headers: {
-                      'Authorization': `Bearer ${token}`,
-                      // Don't set Content-Type header - let browser set it with boundary for FormData
-                  },
-                  body: formData,
-              });
+              const response = await productAPI.add(formData);
 
               console.log('Response status:', response.status);
               console.log('Response headers:', response.headers);

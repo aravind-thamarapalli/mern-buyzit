@@ -1,0 +1,57 @@
+.theme-toggle {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius-full);
+  transition: all var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  background-color: var(--surface-hover);
+}
+
+.theme-toggle-track {
+  width: 48px;
+  height: 24px;
+  background-color: var(--border-color);
+  border-radius: var(--border-radius-full);
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+.dark-theme .theme-toggle-track {
+  background-color: var(--primary-color);
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--surface);
+  border-radius: var(--border-radius-full);
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.dark-theme .theme-toggle-thumb {
+  transform: translateX(24px);
+  background-color: var(--background-primary);
+  color: var(--warning-color);
+}
+
+.theme-toggle:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  transition: all var(--transition-fast);
+}

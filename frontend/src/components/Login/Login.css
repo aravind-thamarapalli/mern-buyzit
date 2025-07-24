@@ -1,6 +1,6 @@
-/* Modern Signup Component Styles */
+/* Modern Login Component Styles */
 
-.signup-container {
+.login-container {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -9,21 +9,20 @@
     padding: var(--spacing-lg);
 }
 
-.form-container {
+.login-card {
     background: var(--surface);
     border-radius: var(--border-radius-xl);
     box-shadow: var(--shadow-xl);
     border: 1px solid var(--border-color);
     padding: var(--spacing-2xl);
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(20px);
-    animation: slideUp 0.6s ease-out;
 }
 
-.form-container::before {
+.login-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -33,45 +32,34 @@
     background: var(--gradient-primary);
 }
 
-.signup-header {
+.login-header {
     text-align: center;
     margin-bottom: var(--spacing-2xl);
 }
 
-.signup-title {
+.login-title {
     font-size: 2rem;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: var(--spacing-sm);
 }
 
-.signup-subtitle {
+.login-subtitle {
     color: var(--text-secondary);
     font-size: 0.875rem;
 }
 
-.signup-form {
+.login-form {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-lg);
 }
 
-.form-row {
-    display: flex;
-    gap: var(--spacing-md);
-}
-
-.form-row .form-group {
-    flex: 1;
-}
-
 .form-group {
     position: relative;
-    display: flex;
-    flex-direction: column;
 }
 
-.signup-labels {
+.form-label {
     display: block;
     font-weight: 600;
     color: var(--text-primary);
@@ -79,7 +67,7 @@
     font-size: 0.875rem;
 }
 
-.signup-inputs {
+.form-input {
     width: 100%;
     padding: var(--spacing-md);
     border: 2px solid var(--border-color);
@@ -91,32 +79,18 @@
     box-sizing: border-box;
 }
 
-.signup-inputs:focus {
+.form-input:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
     background: var(--surface);
 }
 
-.signup-inputs::placeholder {
+.form-input::placeholder {
     color: var(--text-tertiary);
 }
 
-.signup-inputs.error {
-    border-color: var(--danger-color);
-    box-shadow: 0 0 0 3px rgba(var(--danger-rgb), 0.1);
-}
-
-.error-text {
-    color: var(--danger-color);
-    font-size: 0.75rem;
-    margin-top: var(--spacing-xs);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-}
-
-.signup-button {
+.login-button {
     width: 100%;
     background: var(--primary-color);
     color: var(--text-inverse);
@@ -129,27 +103,27 @@
     transition: all var(--transition-normal);
     position: relative;
     overflow: hidden;
-    margin-top: var(--spacing-lg);
+    margin-top: var(--spacing-md);
 }
 
-.signup-button:hover {
+.login-button:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
 }
 
-.signup-button:active {
+.login-button:active {
     transform: translateY(0);
 }
 
-.signup-button:disabled {
+.login-button:disabled {
     background: var(--text-tertiary);
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
 }
 
-.signup-button::before {
+.login-button::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -162,89 +136,50 @@
     transition: all var(--transition-fast);
 }
 
-.signup-button:hover::before {
+.login-button:hover::before {
     width: 300px;
     height: 300px;
 }
 
-.signup-footer {
+.login-footer {
     text-align: center;
     margin-top: var(--spacing-xl);
     padding-top: var(--spacing-lg);
     border-top: 1px solid var(--border-color);
 }
 
-.signup-link {
+.login-link {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
     transition: all var(--transition-fast);
 }
 
-.signup-link:hover {
+.login-link:hover {
     color: var(--primary-hover);
     text-decoration: underline;
 }
 
-.password-strength {
-    margin-top: var(--spacing-sm);
-}
-
-.strength-bar {
-    height: 4px;
-    background: var(--border-color);
-    border-radius: var(--border-radius-full);
-    overflow: hidden;
-    margin-bottom: var(--spacing-xs);
-}
-
-.strength-fill {
-    height: 100%;
-    transition: all var(--transition-normal);
-    border-radius: var(--border-radius-full);
-}
-
-.strength-fill.weak {
-    width: 25%;
-    background: var(--danger-color);
-}
-
-.strength-fill.fair {
-    width: 50%;
-    background: #f59e0b;
-}
-
-.strength-fill.good {
-    width: 75%;
-    background: #3b82f6;
-}
-
-.strength-fill.strong {
-    width: 100%;
-    background: var(--success-color);
-}
-
-.strength-text {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-}
-
-.terms-checkbox {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-sm);
-    margin: var(--spacing-lg) 0;
-}
-
-.terms-checkbox input[type="checkbox"] {
-    margin-top: 2px;
-    accent-color: var(--primary-color);
-}
-
-.terms-text {
+.error-message {
+    background: rgba(var(--danger-rgb), 0.1);
+    color: var(--danger-color);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    border: 1px solid rgba(var(--danger-rgb), 0.2);
     font-size: 0.875rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.success-message {
+    background: rgba(var(--success-rgb), 0.1);
+    color: var(--success-color);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    border: 1px solid rgba(var(--success-rgb), 0.2);
+    font-size: 0.875rem;
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
 }
 
 .loading-spinner {
@@ -263,72 +198,86 @@
     100% { transform: rotate(360deg); }
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Floating labels animation */
+.form-group.floating .form-label {
+    position: absolute;
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    color: var(--text-tertiary);
+    transition: all var(--transition-normal);
+    pointer-events: none;
+    background: var(--surface);
+    padding: 0 var(--spacing-xs);
 }
 
-/* Success/Error Messages */
-.success-message,
-.error-message {
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    font-size: 0.875rem;
-    margin-bottom: var(--spacing-lg);
-    text-align: center;
-    border: 1px solid;
-}
-
-.success-message {
-    background: rgba(var(--success-rgb), 0.1);
-    color: var(--success-color);
-    border-color: rgba(var(--success-rgb), 0.2);
-}
-
-.error-message {
-    background: rgba(var(--danger-rgb), 0.1);
-    color: var(--danger-color);
-    border-color: rgba(var(--danger-rgb), 0.2);
+.form-group.floating .form-input:focus + .form-label,
+.form-group.floating .form-input:not(:placeholder-shown) + .form-label {
+    top: -8px;
+    left: var(--spacing-sm);
+    font-size: 0.75rem;
+    color: var(--primary-color);
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    .form-row {
-        flex-direction: column;
-        gap: var(--spacing-md);
-    }
-}
-
 @media (max-width: 480px) {
-    .signup-container {
+    .login-container {
         padding: var(--spacing-md);
     }
     
-    .form-container {
+    .login-card {
         padding: var(--spacing-xl);
     }
     
-    .signup-title {
+    .login-title {
         font-size: 1.5rem;
     }
 }
 
 /* Focus states for accessibility */
-.signup-button:focus,
-.signup-inputs:focus {
+.login-button:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }
 
+.form-input:focus {
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+.forgot-password {
+    font-size: 0.875rem;
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: none;
+    transition: color var(--transition-normal);
+}
+
+.forgot-password:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.login-links {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: var(--spacing-lg);
+}
+
+.signup-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition-normal);
+}
+
+.signup-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
 /* Dark mode specific adjustments */
 @media (prefers-color-scheme: dark) {
-    .form-container {
+    .login-card {
         backdrop-filter: blur(30px);
     }
 }

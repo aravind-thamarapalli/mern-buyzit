@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import './AddCategory.css';
-
-const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; 
+import { categoryAPI } from '../../../services/api'; 
 
 // Validation schema
 const categorySchema = yup.object().shape({
@@ -28,14 +27,7 @@ const AddCategory = () => {
         const token = localStorage.getItem('token'); // Retrieve the token from localStorage (or wherever you store it)
 
         try {
-            const response = await fetch(`${BACKEND_URL}/api/categories`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
-                },
-                body: JSON.stringify(data),
-            });
+            const response = await categoryAPI.add(data);
 
             if (!response.ok) {
                 throw new Error('Failed to add category');

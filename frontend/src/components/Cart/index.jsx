@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import "./Cart.css";
-const BACKEND_URL = "https://mern-buyzit-backend.onrender.com"; // Update with your backend URL
+import { cartAPI } from "../../services/api";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -13,13 +13,7 @@ const Cart = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
   try {
-    const response = await fetch(`${BACKEND_URL}/cart`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await cartAPI.get();
 
     if (!response.ok) {
       throw new Error("Failed to fetch cart items");
@@ -56,14 +50,7 @@ const Cart = () => {
 
   const updateQuantity = async (productId, newQty) => {
     try {
-      const response = await fetch(`${BACKEND_URL}/cart/${productId}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ quantity: newQty }),
-      });
+      const response = await cartAPI.updateQuantity(productId, newQty);
 
       if (!response.ok) {
         throw new Error("Failed to update item quantity");
@@ -96,18 +83,29 @@ const Cart = () => {
     updateQuantity(productId, updatedItems.find((i) => i.productId._id === productId).quantity);
   };
 
-  const handleRemove = (productId) => {
-    const updatedItems = cartItems.filter((item) => item.productId._id !== productId);
-    setCartItems(updatedItems);
-    calculateTotal(updatedItems);
-    // TODO: Add backend delete call here if required
+  const handleRemove = async (productId) => {
+    try {
+      const response = await cartAPI.remove(productId);
+      
+      if (!response.ok) {
+        throw new Error("Failed to remove item from cart");
+      }
+
+      const updatedItems = cartItems.filter((item) => item.productId._id !== productId);
+      setCartItems(updatedItems);
+      calculateTotal(updatedItems);
+      console.log("Item removed successfully");
+    } catch (error) {
+      console.error("Remove item error:", error);
+      // Optionally show user-friendly error message
+    }
   };
 
   return (
     <div className="cart-main">
       <div className="cart-container">
         <h2 className="cart-title">Cart</h2>
-        <hr className="border-gray-900 mt-4 mb-8" />
+        <hr className="cart-divider" />
 
         {!Array.isArray(cartItems) || cartItems.length === 0 ? (
           <p className="empty-cart">No Products</p>

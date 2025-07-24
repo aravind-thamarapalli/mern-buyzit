@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
-
-const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; // Update with your backend URL
+import { authAPI } from '../../services/api';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -57,17 +56,11 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch(`${BACKEND_URL}/api/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: formData.username,
-          phone: formData.phone,
-          email: formData.email,
-          password: formData.password
-        })
+      const response = await authAPI.register({
+        username: formData.username,
+        phone: formData.phone,
+        email: formData.email,
+        password: formData.password
       });
 
       const data = await response.json();
@@ -108,7 +101,7 @@ const Signup = () => {
               className="signup-inputs"
             />
             {errors.username && (
-              <p className="text-red-500 text-xs mt-1">{errors.username}</p>
+              <p className="error-message">{errors.username}</p>
             )}
           </div>
 
@@ -122,7 +115,7 @@ const Signup = () => {
               className="signup-inputs"
             />
             {errors.email && (
-              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+              <p className="error-message">{errors.email}</p>
             )}
           </div>
           <div>
@@ -135,7 +128,7 @@ const Signup = () => {
               className="signup-inputs"
             />
             {errors.phone && (
-              <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+              <p className="error-message">{errors.phone}</p>
             )}
           </div>
           <div>
@@ -148,7 +141,7 @@ const Signup = () => {
               className="signup-inputs"
             />
             {errors.password && (
-              <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+              <p className="error-message">{errors.password}</p>
             )}
           </div>
           <div>
@@ -161,7 +154,7 @@ const Signup = () => {
               className="signup-inputs"
             />
             {errors.cpassword && (
-              <p className="text-red-500 text-xs mt-1">{errors.cpassword}</p>
+              <p className="error-message">{errors.cpassword}</p>
             )}
           </div>
           <div className="signup-submit">

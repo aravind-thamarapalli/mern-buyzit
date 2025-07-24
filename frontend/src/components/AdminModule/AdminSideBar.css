@@ -17,6 +17,14 @@ body {
     cursor: pointer;
 }
 
+.toggle-hidden {
+    display: none;
+}
+
+.toggle-visible {
+    display: block;
+}
+
 .icon {
     width: 24px;
     height: 24px;

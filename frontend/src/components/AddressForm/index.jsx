@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import CartPopup from '../CartPopup';
 import './AddressForm.css';
 import { useNavigate } from 'react-router-dom';
-
-const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; 
+import { addressAPI, cartAPI } from '../../services/api'; 
 
 const AddressForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -34,24 +33,13 @@ const AddressForm = ({ onSubmit }) => {
 
     try {
       // 1. Submit address
-      const response = await fetch(`${BACKEND_URL}/add-address`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await addressAPI.add(formData);
 
       if (!response.ok) throw new Error('Failed to submit address');
       await response.json();
 
       // 2. Fetch cart
-      const cartResponse = await fetch(`${BACKEND_URL}/cart`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const cartResponse = await cartAPI.get();
 
       if (!cartResponse.ok) throw new Error('Failed to fetch cart details');
       const cartData = await cartResponse.json();

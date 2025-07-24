@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiTrash2 } from 'react-icons/fi';
 import './index.css';
-
-const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; 
+import { productAPI, orderAPI, categoryAPI, userAPI } from '../../../services/api'; 
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
@@ -15,17 +14,14 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
 
-  const token = localStorage.getItem('token');
-  const headers = { Authorization: `Bearer ${token}` };
-
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
         const [productRes, orderRes, categoryRes, usersRes] = await Promise.all([
-          fetch(`${BACKEND_URL}/api/get-products`, { headers }),
-          fetch(`${BACKEND_URL}/all-orders`, { headers }),
-          fetch(`${BACKEND_URL}/api/categories`, { headers }),
-          fetch(`${BACKEND_URL}/api/users`, { headers }),
+          productAPI.getAll(),
+          orderAPI.getAll(),
+          categoryAPI.getAll(),
+          userAPI.getAll(),
         ]);
 
         if (!productRes.ok || !orderRes.ok || !categoryRes.ok || !usersRes.ok) {
@@ -59,10 +55,14 @@ const Dashboard = () => {
     if (!confirm) return;
 
     try {
-      const response = await fetch(`${url}/${id}`, {
-        method: 'DELETE',
-        headers
-      });
+      let response;
+      if (url.includes('products')) {
+        response = await productAPI.delete(id);
+      } else if (url.includes('categories')) {
+        response = await categoryAPI.delete(id);
+      } else if (url.includes('users')) {
+        response = await userAPI.delete(id);
+      }
 
       if (!response.ok) {
         throw new Error('Failed to delete');
@@ -94,7 +94,7 @@ const Dashboard = () => {
             {products.map((p) => (
               <div key={p._id} className="mini-item">
                 {p.name} - ₹{p.price}
-                <button onClick={() => confirmAndDelete(`${BACKEND_URL}/api/products`, p._id, setProducts)} className="delete-btn"><FiTrash2 /></button>
+                <button onClick={() => confirmAndDelete('products', p._id, setProducts)} className="delete-btn"><FiTrash2 /></button>
               </div>
             ))}
           </div>

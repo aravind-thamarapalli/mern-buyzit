@@ -1,6 +1,6 @@
 // AdminSideBar.js
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import ProductForm from "./AddProduct";
 import AddCategory from "./AddCategory";
 import OrdersPage from "./OrdersPage";
@@ -20,7 +20,7 @@ const AdminSideBar = () => {
     <>
       <button
         type="button"
-        className={`toggle-button ${isOpen ? "hidden" : "block"}`}
+        className={`toggle-button ${isOpen ? "toggle-hidden" : "toggle-visible"}`}
         onClick={toggleSidebar}
       >
         <span className="sr-only">
@@ -78,24 +78,24 @@ const AdminSideBar = () => {
 
           <ul className="menu">
             <li>
-              <a href="dashboard" className="menu-item">
+              <Link to="/admin/dashboard" className="menu-item">
                 Dashboard
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="add-product" className="menu-item">
+              <Link to="/admin/add-product" className="menu-item">
                 Add Products
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="add-category" className="menu-item">
+              <Link to="/admin/add-category" className="menu-item">
                 Add Category
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="all-orders" className="menu-item">
+              <Link to="/admin/all-orders" className="menu-item">
                 All Orders
-              </a>
+              </Link>
             </li>
             <li>
               <a href="/login" className="menu-item">

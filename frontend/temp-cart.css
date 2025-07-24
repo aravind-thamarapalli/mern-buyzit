@@ -53,14 +53,6 @@
     border-radius: var(--border-radius-full);
 }
 
-.cart-divider {
-    border: none;
-    height: 2px;
-    background: var(--border-color);
-    margin: var(--spacing-lg) 0 var(--spacing-xl) 0;
-    border-radius: var(--border-radius-full);
-}
-
 .empty-cart {
     text-align: center;
     font-size: 1.125rem;

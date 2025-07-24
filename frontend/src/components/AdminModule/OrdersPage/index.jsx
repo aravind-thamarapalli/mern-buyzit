@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
-const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; 
+import { orderAPI } from '../../../services/api'; 
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -14,12 +14,7 @@ const OrdersPage = () => {
         const token = localStorage.getItem('token');
         if (!token) throw new Error('Token not found');
 
-        const response = await fetch(`${BACKEND_URL}/all-orders`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
+        const response = await orderAPI.getAll();
 
         if (!response.ok) {
           throw new Error('Failed to fetch orders');
@@ -43,14 +38,7 @@ const OrdersPage = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${BACKEND_URL}/all-orders/${orderId}/status`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
+      const response = await orderAPI.updateStatus(orderId, newStatus);
 
       if (!response.ok) {
         throw new Error('Failed to update order status');

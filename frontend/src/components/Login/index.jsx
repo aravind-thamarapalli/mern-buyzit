@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-const BACKEND_URL = 'https://mern-buyzit-backend.onrender.com'; // Update with your backend URL
+import { useNavigate, Link } from 'react-router-dom';
+import { authAPI } from '../../services/api';
+import './Login.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -13,13 +13,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${BACKEND_URL}/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await authAPI.login({ username, password });
 
       const data = await response.json();
 
@@ -48,59 +42,59 @@ const Login = () => {
   };
 
   return (
-    <div className="">
-      <div className="login-1">
-        <div className="login-main">
-          <div className="signup-container">
-            <form className="form-container" onSubmit={handleSubmit}>
-              <h2 className="signup-header">Sign in your account</h2>
-              <label className="signup-labels">User name</label>
-              <div>
-                <input
-                  name="username"
-                  type="text"
-                  required
-                  className="signup-inputs"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label className="signup-labels">Password</label>
-                <input
-                  name="password"
-                  type="password"
-                  required
-                  className="signup-inputs"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div>
-                <a href="javascript:void(0);" className="signup-links">
-                  Forgot your password?
-                </a>
-              </div>
-
-              <div>
-                <button
-                  type="submit"
-                  className="signup-btns"
-                  disabled={loading}
-                >
-                  {loading ? "Signing in..." : "Sign in"}
-                </button>
-              </div>
-              <p className="signup-links">
-                Don't have an account?{" "}
-                <a href="/Signup" className="signup-links">
-                  Register here
-                </a>
-              </p>
-            </form>
-          </div>
+    <div className="login-container">
+      <div className="login-card">
+        <div className="login-header">
+          <h2 className="login-title">Sign in your account</h2>
         </div>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">User name</label>
+            <input
+              name="username"
+              type="text"
+              required
+              className="form-input"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input
+              name="password"
+              type="password"
+              required
+              className="form-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          
+          <div className="form-group">
+            <span className="forgot-password" onClick={() => alert('Password reset functionality not implemented yet')}>
+              Forgot your password?
+            </span>
+          </div>
+
+          <div className="form-group">
+            <button
+              type="submit"
+              className="login-button"
+              disabled={loading}
+            >
+              {loading ? "Signing in..." : "Sign in"}
+            </button>
+          </div>
+          
+          <p className="login-links">
+            Don't have an account?{" "}
+            <Link to="/signup" className="signup-link">
+              Register here
+            </Link>
+          </p>
+        </form>
       </div>
     </div>
   );
